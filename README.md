@@ -32,14 +32,23 @@ Terraform makes managing infrastructure simple and scalable. By adding a UserDat
 
 
 resource "aws_instance" "web" {
+
   ami           = "ami-0182f373e66f89c85"
+  
   instance_type = "t2.micro"
+  
   security_groups = [aws_security_group.TF_SG.name]
+  
   key_name = "TF_key"
+
   
   count =50
+  
   tags = {
+  
     Name = "Instance ${count.index}"
+    
   }
+  
 }
 
