@@ -11,6 +11,7 @@ Terraform makes managing infrastructure simple and scalable. By adding a UserDat
 
 
 💡 How to Do It?
+
 • Define your EC2 instance in Terraform.
 
 • Add a UserData script block to specify your setup commands.
@@ -19,3 +20,25 @@ Terraform makes managing infrastructure simple and scalable. By adding a UserDat
 
 
 💡 Pro Tip: Automating EC2 setups reduces manual work and ensures consistency across environments!
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Optionally
+
+
+⁕ The count Object :- In blocks where count is set, an additional count object is available in expressions, so you can modify the configuration of each instance. This object has one attribute:
+
+» count.index — The distinct index number (starting with 0) corresponding to this instance.
+
+
+resource "aws_instance" "web" {
+  ami           = "ami-0182f373e66f89c85"
+  instance_type = "t2.micro"
+  security_groups = [aws_security_group.TF_SG.name]
+  key_name = "TF_key"
+  
+  count =50
+  tags = {
+    Name = "Instance ${count.index}"
+  }
+}
